@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 const repoRoot = new URL('..', import.meta.url).pathname;
 const distDir = join(repoRoot, 'dist');
@@ -40,6 +40,14 @@ const PROVENANCE_FILES = new Set([
 const isVendoredUpstream = (file: string) => file.startsWith(join(repoRoot, 'vendor/threeui/lib/'));
 
 const relative = (file: string) => file.slice(repoRoot.length);
+
+// These tests check the emitted bundle, not the sources. Running them without a build would be a
+// false negative, so fail loudly instead.
+beforeAll(() => {
+  if (!existsSync(join(distDir, 'index.html')) || !existsSync(join(distDir, 'assets'))) {
+    throw new Error('dist/ is missing. Run `npm run build` before `npm run test`: the branding, font and tracking tests assert against the built page.');
+  }
+});
 
 describe('no vendor branding in the product', () => {
   it('never names the vendor in our own source, styles, markup or data', () => {

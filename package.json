@@ -18,7 +18,7 @@
     "lint": "eslint . --max-warnings 0",
     "budget": "node scripts/measure-bytes.mjs --check",
     "vendor:sync": "node scripts/sync-vendor.mjs",
-    "verify": "npm run typecheck && npm run lint && npm run test && npm run build:check",
+    "verify": "npm run typecheck && npm run lint && npm run build && npm run test && npm run budget",
     "vendor:check": "node scripts/sync-vendor.mjs --check"
   },
   "dependencies": {

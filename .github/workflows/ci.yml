@@ -33,11 +33,13 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Test
-        run: npm run test
-
+      # Build before test. Several tests assert against the emitted bundle, so a test run with no
+      # dist/ directory is a false negative rather than a pass.
       - name: Build and enforce the per-card byte budget
         run: npm run build:check
+
+      - name: Test
+        run: npm run test
 
       # The card byte figures are printed on the page and committed to the repository. If a build
       # changes them, the page is now lying about its own cost, so the build must not silently
