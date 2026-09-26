@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pace Gallery — component cards with a measured byte cost</title>
+    <meta
+      name="description"
+      content="A public grid of authored WebGL and DOM component cards. Every card shows its own measured JavaScript cost. No runtime, no tracking, no vendor branding."
+    />
+    <meta name="color-scheme" content="dark" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0b0f'/%3E%3Cpath d='M8 22 L16 8 L24 22' stroke='%237de2c8' stroke-width='2.5' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="font: 16px/1.5 system-ui, sans-serif; padding: 2rem; color: #e8eaf0; background: #0a0b0f">
+        This gallery renders live components and needs JavaScript. The component catalogue, its licences and
+        its measured byte costs are all in <code>attribution.json</code> and <code>cards.json</code> in the
+        repository, and neither needs JavaScript to read.
+      </p>
+    </noscript>
+    <!--
+      The static credit below is not decoration. React renders the full notice in the footer once the
+      page hydrates, but an MIT notice that only appears after script execution is absent from the
+      delivered document: it is missing for a reader with JavaScript disabled and from the HTML itself.
+      This block is plain markup so the notice-retention obligation is met by the artefact.
+
+      It is deliberately the irreducible notice and nothing else — no byte figures, no tracker count,
+      no operational claims. Those already appear in the masthead and the rendered footer, and when
+      this block repeated them it read as a second, accidental footer. It is a colophon, not a
+      footer. `tests/compliance.test.ts` caps its length so it cannot grow into one.
+    -->
+    <footer id="credit" class="static-credit">
+      <p>
+        <strong>Pace component gallery.</strong> Components derived from
+        <code>@designcodeio/threeui</code> v1.2.0, redistributed under the MIT License, Copyright (c) 2026
+        Meng To. Full notice in <code>THIRD_PARTY_NOTICES.md</code>; per-card provenance in
+        <code>attribution.json</code>. A source licence, not a trademark licence: not affiliated with,
+        endorsed by, or sponsored by the upstream project.
+      </p>
+    </footer>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

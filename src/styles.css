@@ -1,0 +1,684 @@
+/* Pace Gallery — page styles. No CSS framework: the whole page is a grid and a set of stills. */
+
+:root {
+  --ink: #e9ecf3;
+  --ink-dim: #98a0b4;
+  --ink-faint: #6b7387;
+  --page: #07080b;
+  --panel: #0d0f15;
+  --panel-edge: #1b1f2a;
+  --accent: #7de2c8;
+  --radius: 14px;
+  --gap: 22px;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  color: var(--ink);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--accent);
+  color: #05110d;
+  padding: 10px 16px;
+  border-radius: 0 0 8px 0;
+  z-index: 10;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 48px) 72px;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  padding: clamp(48px, 9vw, 108px) 0 clamp(28px, 4vw, 48px);
+  max-width: 62ch;
+}
+
+.masthead__eyebrow {
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.masthead__title {
+  margin: 0 0 20px;
+  font-size: clamp(30px, 5.2vw, 58px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+
+.masthead__lede {
+  margin: 0 0 16px;
+  font-size: clamp(16px, 1.7vw, 19px);
+  color: var(--ink-dim);
+}
+
+.masthead__note {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-faint);
+  border-left: 2px solid var(--panel-edge);
+  padding-left: 14px;
+}
+
+/* ---------- gallery ---------- */
+
+.gallery__group {
+  margin: 0 0 clamp(40px, 6vw, 72px);
+}
+
+.gallery__group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--panel-edge);
+}
+
+.gallery__count {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  border: 1px solid var(--panel-edge);
+  border-radius: 999px;
+  padding: 2px 8px;
+  text-transform: none;
+}
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--gap);
+}
+
+@media (max-width: 520px) {
+  .gallery__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- card ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.card-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #05060a;
+  border-bottom: 1px solid var(--panel-edge);
+  isolation: isolate;
+}
+
+.card-stage__live,
+.card-stage__live > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-stage__badge {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  margin: 0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  color: var(--ink-dim);
+  background: rgba(7, 8, 11, 0.72);
+  border: 1px solid var(--panel-edge);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 140ms ease;
+  pointer-events: none;
+}
+
+.card-stage:hover .card-stage__badge,
+.card-stage:focus-within .card-stage__badge {
+  opacity: 1;
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px 18px;
+  flex: 1;
+}
+
+.card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.card__name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.card__bytes {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.card__bytes-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.card__bytes-sep {
+  color: var(--ink-faint);
+  padding: 0 2px;
+}
+
+.card__description {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-dim);
+  flex: 1;
+}
+
+.card__credit {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--ink-faint);
+  padding-top: 4px;
+  border-top: 1px solid var(--panel-edge);
+}
+
+.card__notice {
+  flex-basis: 100%;
+  margin-top: 6px;
+}
+
+.card__notice summary {
+  cursor: pointer;
+  color: var(--ink-faint);
+  text-decoration: underline dotted;
+}
+
+.card__notice p {
+  margin: 6px 0 0;
+  color: var(--ink-faint);
+  line-height: 1.45;
+}
+
+/* ---------- the still: CSS only, static, no bytes of its own ---------- */
+
+.card-still {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% 108%, var(--still-to) 0%, transparent 62%),
+    radial-gradient(90% 70% at 50% 0%, color-mix(in srgb, var(--still-via) 70%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, var(--still-from) 0%, var(--still-via) 130%);
+}
+
+.card-still[data-dimmed='true'] {
+  filter: saturate(0.72) brightness(0.82);
+}
+
+.card-still__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+}
+
+.card-still[data-pattern='rain']::before {
+  content: '';
+  position: absolute;
+  inset: -20% -20% -20% 30%;
+  background-image: repeating-linear-gradient(
+    74deg,
+    color-mix(in srgb, var(--still-to) 55%, transparent) 0 1px,
+    transparent 1px 7px
+  );
+  opacity: 0.5;
+}
+
+/* Droplets, not rain: beads clinging to a cold pane, largest at the bottom. */
+.card-still[data-pattern='drops']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 5px 8px at 18% 30%, color-mix(in srgb, var(--still-to) 70%, transparent) 40%, transparent 42%),
+    radial-gradient(ellipse 3px 5px at 34% 62%, color-mix(in srgb, var(--still-to) 60%, transparent) 40%, transparent 42%),
+    radial-gradient(ellipse 7px 11px at 58% 44%, color-mix(in srgb, var(--still-to) 75%, transparent) 40%, transparent 42%),
+    radial-gradient(ellipse 4px 6px at 72% 74%, color-mix(in srgb, var(--still-to) 60%, transparent) 40%, transparent 42%),
+    radial-gradient(ellipse 3px 5px at 88% 26%, color-mix(in srgb, var(--still-to) 55%, transparent) 40%, transparent 42%),
+    radial-gradient(ellipse 6px 9px at 46% 86%, color-mix(in srgb, var(--still-to) 65%, transparent) 40%, transparent 42%);
+}
+
+.card-still[data-pattern='streaks']::before,
+.card-still[data-pattern='stream']::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    color-mix(in srgb, var(--still-to) 42%, transparent) 0deg 0.7deg,
+    transparent 0.7deg 4deg
+  );
+  opacity: 0.55;
+  mask-image: radial-gradient(closest-side, #000 20%, transparent 88%);
+}
+
+.card-still[data-pattern='dots']::before,
+.card-still[data-pattern='scanlines']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--still-to) 85%, transparent) 1.1px,
+    transparent 1.2px
+  );
+  background-size: 13px 13px;
+  mask-image: radial-gradient(closest-side at 50% 60%, #000 10%, transparent 92%);
+  opacity: 0.8;
+}
+
+.card-still[data-pattern='scanlines']::before {
+  background-image: repeating-linear-gradient(
+    0deg,
+    color-mix(in srgb, var(--still-to) 70%, transparent) 0 1px,
+    transparent 1px 4px
+  );
+  background-size: auto;
+  mask-image: none;
+  opacity: 0.35;
+}
+
+.card-still[data-pattern='horizon']::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--still-to) 34%, transparent) 60%,
+    color-mix(in srgb, var(--still-to) 62%, transparent)
+  );
+}
+
+.card-still[data-pattern='orbit']::before,
+.card-still[data-pattern='rings']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(
+    circle at 50% 50%,
+    transparent 0 13px,
+    color-mix(in srgb, var(--still-to) 40%, transparent) 13px 14px
+  );
+  mask-image: radial-gradient(closest-side, #000 30%, transparent 96%);
+  opacity: 0.85;
+}
+
+.card-still[data-pattern='orbit']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 36% 30%,
+    color-mix(in srgb, var(--still-to) 90%, transparent),
+    var(--still-via) 68%
+  );
+  box-shadow: 0 0 60px color-mix(in srgb, var(--still-to) 45%, transparent);
+}
+
+.card-still[data-pattern='contour']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(
+    ellipse 120% 80% at 30% 110%,
+    transparent 0 11px,
+    color-mix(in srgb, var(--still-to) 34%, transparent) 11px 12px
+  );
+  opacity: 0.8;
+}
+
+.card-still[data-pattern='blob']::after,
+.card-still[data-pattern='ribbon']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 52%;
+  aspect-ratio: 1.5;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%;
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--still-to) 85%, transparent),
+    var(--still-via) 55%,
+    var(--still-from) 92%
+  );
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  opacity: 0.92;
+}
+
+/* A ribbon is a band that leaves the frame, not a blob: two offset arcs and a highlight. */
+.card-still[data-pattern='ribbon']::after {
+  width: 128%;
+  height: 26%;
+  aspect-ratio: auto;
+  top: 20%;
+  transform: translate(-50%, -50%) rotate(-14deg);
+  border-radius: 999px;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    color-mix(in srgb, var(--still-to) 88%, transparent) 34%,
+    var(--still-via) 58%,
+    transparent 92%
+  );
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5);
+  opacity: 0.9;
+}
+
+.card-still[data-pattern='ribbon'] {
+  background:
+    radial-gradient(120% 80% at 22% 88%, color-mix(in srgb, var(--still-to) 40%, transparent) 0%, transparent 60%),
+    radial-gradient(90% 70% at 74% 8%, var(--still-via) 0%, transparent 66%),
+    linear-gradient(180deg, var(--still-from) 0%, var(--still-via) 140%);
+}
+
+.card-still[data-pattern='blade']::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -20%;
+  width: 26%;
+  height: 150%;
+  transform: translateX(-50%) rotate(24deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--still-to) 92%, transparent) 45%,
+    var(--still-via) 62%,
+    transparent
+  );
+  filter: blur(1.5px);
+  box-shadow: 0 0 70px color-mix(in srgb, var(--still-to) 55%, transparent);
+}
+
+.card-still[data-pattern='toggle']::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46%;
+  aspect-ratio: 2.1;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--still-to) 60%, transparent);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--still-to) 26%, transparent),
+    transparent
+  );
+}
+
+.card-still[data-pattern='toggle']::after {
+  content: '';
+  position: absolute;
+  left: calc(50% + 4%);
+  top: 50%;
+  width: 12%;
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--still-to));
+  box-shadow: 0 0 26px color-mix(in srgb, var(--still-to) 70%, transparent);
+}
+
+.card-still[data-pattern='pill']::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 52%;
+  aspect-ratio: 3.4;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--still-to) 55%, transparent);
+  background: linear-gradient(120deg, var(--still-from), var(--still-via));
+}
+
+.card-still[data-pattern='pill']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 42%;
+  aspect-ratio: 3;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--still-to) 26%, transparent);
+  box-shadow: 0 0 34px color-mix(in srgb, var(--still-to) 40%, transparent);
+}
+
+.card-still[data-pattern='dock']::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  width: 46%;
+  height: 22%;
+  transform: translateX(-50%);
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--still-to) 50%, transparent);
+  background: linear-gradient(180deg, var(--still-via), var(--still-from));
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.6);
+}
+
+.card-still[data-pattern='dock']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  width: 64%;
+  height: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--still-to) 70%, transparent),
+    transparent
+  );
+}
+
+/* ---------- footer ---------- */
+
+.footer {
+  border-top: 1px solid var(--panel-edge);
+  padding-top: 32px;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+}
+
+@media (max-width: 760px) {
+  .footer {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer__stats {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.footer__stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer__stat-value {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.footer__stat-label {
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.footer__notice {
+  max-width: 72ch;
+  font-size: 13.5px;
+  color: var(--ink-dim);
+}
+
+.footer__notice h2 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.footer__notice p {
+  margin: 0 0 12px;
+}
+
+.footer__legal {
+  color: var(--ink-faint);
+  border-left: 2px solid var(--panel-edge);
+  padding-left: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.footer__notice-detail {
+  padding: 12px 14px;
+  border: 1px solid var(--panel-edge);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.015);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+}
+
+/*
+ * The static credit in index.html. It is in the document rather than in a component so the MIT
+ * notice ships without script execution. It is a colophon, not a second footer: a hairline rule and
+ * quieter type keep it reading as the document's own imprint sitting under the rendered footer.
+ */
+.static-credit {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  border-top: 1px solid #1e2230;
+  color: #6f7686;
+  font-size: 0.75rem;
+  line-height: 1.65;
+}
+
+.static-credit p {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.static-credit strong {
+  color: #9aa1b1;
+  font-weight: 600;
+}
+
+.static-credit code {
+  color: #7de2c8;
+}

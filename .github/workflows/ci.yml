@@ -1,0 +1,63 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install from the lockfile
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      # Build before test. Several tests assert against the emitted bundle, so a test run with no
+      # dist/ directory is a false negative rather than a pass.
+      - name: Build and enforce the per-card byte budget
+        run: npm run build:check
+
+      - name: Test
+        run: npm run test
+
+      - name: The committed byte report must still match the bundle
+        run: |
+          # measure-bytes --check already ran above and hard-failed on drift beyond tolerance.
+          # A committed report that changed at all means a figure moved for a real reason.
+          if ! git diff --exit-code -- src/lib/card-bytes.json; then
+            echo "::warning::src/lib/card-bytes.json changed during the build. Per-machine minifier"
+            echo "::warning::output can move a card by a few hundred bytes; the figures above are the"
+            echo "::warning::authoritative ones. Review the diff before accepting it."
+            git diff -- src/lib/card-bytes.json
+          fi
+
+      - name: The vendored tree must match the published tarball
+        run: npm run vendor:check
+
+      - name: Upload the built site
+        uses: actions/upload-artifact@v4
+        with:
+          name: pace-gallery-dist
+          path: dist/
+          retention-days: 7

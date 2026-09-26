@@ -1,0 +1,16 @@
+{
+  "$comment": "Per-card byte budget. Enforced by scripts/measure-bytes.mjs. See README.md for what is and is not counted.",
+  "perCardGzipBytes": 153600,
+  "rationale": "150 KiB gzipped per card. Upstream publishes no per-component sizes, so this ceiling is ours to set. A WebGL card that fits under 150 KiB gzipped is small enough that one card's cost is not a page-load decision. The heaviest card in this gallery is an order of magnitude under the ceiling; the ceiling is a regression gate, not a tuning target.",
+  "counts": {
+    "ownChunkGzip": "Gzipped bytes of the card's own JavaScript chunk, after tree-shaking, excluding shared chunks.",
+    "assetBytes": "Raw (uncompressed) bytes of textures, models, HDRIs and fonts the card references. Zero for every card here: all 17 are procedural shader or DOM cards with no binary assets.",
+    "sharedRuntimeGzip": "Gzipped bytes of chunks shared by every card (React, Three.js, shared vendor modules). Reported once at page level, never charged to a single card, because no single card causes it.",
+    "pageShellGzip": "Gzipped bytes of the entry chunk. Measured and recorded for auditing, but never printed on the page: the entry chunk contains the byte report, so a page figure that counted its own chunk could never settle. Nothing is hidden; it is one line of CLI output and one field in card-bytes.json."
+  },
+  "doesNotCount": [
+    "sourcemap files, which are a debugging aid and are not fetched by a browser",
+    "the HTML document and page CSS, which are page-level rather than per-card costs"
+  ],
+  "crossMachineTolerance": "A card figure may move by up to 1024 bytes between build machines without failing the gate. The bundler's minifier ships a platform-specific native binary, so macOS and Linux output is not byte-identical. Exceeding the per-card ceiling is always a hard fail regardless of tolerance."
+}

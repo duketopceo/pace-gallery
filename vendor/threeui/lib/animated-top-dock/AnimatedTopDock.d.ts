@@ -1,0 +1,45 @@
+export declare const ANIMATED_TOP_DOCK_VARIANTS: readonly ["sable", "modern", "retro", "glass"];
+export type AnimatedTopDockVariant = (typeof ANIMATED_TOP_DOCK_VARIANTS)[number];
+export type AnimatedTopDockProps = {
+    variant?: AnimatedTopDockVariant;
+    proximity?: number;
+    spring?: number;
+    damping?: number;
+    widthGrowth?: number;
+    heightGrowth?: number;
+    drop?: number;
+    pixelSize?: number;
+    speed?: number;
+    noise?: number;
+    levels?: number;
+    scanlines?: number;
+    particles?: number;
+    thickness?: number;
+    dispersion?: number;
+    specular?: number;
+    rim?: number;
+    drift?: number;
+    className?: string;
+};
+export declare const ANIMATED_TOP_DOCK_DEFAULTS: {
+    readonly variant: AnimatedTopDockVariant;
+    readonly proximity: 122;
+    readonly spring: 0.19;
+    readonly damping: 0.7;
+    readonly widthGrowth: 17;
+    readonly heightGrowth: 16;
+    readonly drop: 3.5;
+    readonly pixelSize: 4;
+    readonly speed: 1;
+    readonly noise: 1;
+    readonly levels: 7;
+    readonly scanlines: 0.32;
+    readonly particles: 22;
+    readonly thickness: 0.115;
+    readonly dispersion: 0.05;
+    readonly specular: 0.85;
+    readonly rim: 0.5;
+    readonly drift: 1;
+};
+export declare function AnimatedTopDock({ className, ...props }: AnimatedTopDockProps): import("react").JSX.Element;
+//# sourceMappingURL=AnimatedTopDock.d.ts.map

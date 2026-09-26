@@ -1,0 +1,44 @@
+{
+  "package": "@designcodeio/threeui",
+  "version": "1.2.0",
+  "tarball": "https://registry.npmjs.org/@designcodeio/threeui/-/threeui-1.2.0.tgz",
+  "tarballIntegrity": "sha512-E6F/+IPfLKYatB5W62H3gK1bp9WYvfO6xuWBaBh8oLVR7fbTeeEwgLqqy7ZPMA0zmDpAy03nKYOIswBXsstL2g==",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2026 Meng To",
+  "renamedTokens": [
+    {
+      "from": "THREEUI",
+      "to": "DEMO"
+    },
+    {
+      "from": "threeui-",
+      "to": "pg-"
+    },
+    {
+      "from": "ThreeUILaserVariant",
+      "to": "LaserVariantName"
+    },
+    {
+      "from": "\"ThreeUI Fragment Mono\", ",
+      "to": ""
+    },
+    {
+      "from": "\"ThreeUI Fragment Mono\",",
+      "to": ""
+    },
+    {
+      "from": "ThreeUI Fragment Mono,",
+      "to": "ui-monospace,"
+    },
+    {
+      "from": "ThreeUI Fragment Mono",
+      "to": "ui-monospace"
+    }
+  ],
+  "strippedPatterns": [
+    "@font-face\\{[^}]*\\}",
+    "ui-monospace,ui-monospace,"
+  ],
+  "vendoredFiles": 140,
+  "vendoredBytes": 433273
+}
