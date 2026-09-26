@@ -40,9 +40,12 @@ it without re-reading that constraint.
 2. **Never add a card whose module renders an iframe document.** 73 of the 103 upstream exports
    are a byte-exact HTML document in a sandboxed iframe. They are not components. A test fails the
    build if a vendored module grows an iframe, a `sources/` document import, or a remote URL.
-3. **Never hand-edit `src/lib/card-bytes.json`.** It is generated, and CI fails if a build would
-   change it. If a card's figure looks wrong, fix the measurement in
-   `scripts/measure-bytes.mjs` and rebuild.
+3. **Never hand-edit `src/lib/card-bytes.json`.** It is generated, and `npm run build:check` fails if
+   a figure moved beyond the 1024-byte cross-machine tolerance. If a card's figure looks wrong, fix
+   the measurement in `scripts/measure-bytes.mjs` and rebuild. The entry chunk is measured as the
+   *page shell* and is never printed on the page, because the page shell holds the report: a printed
+   figure that counted its own chunk could never settle. Do not move it back into the shared-runtime
+   total.
 4. **Adding a card means touching four files, in this order:** `vendor/threeui.manifest.json`
    (allowlist, then `npm run vendor:sync`), `cards.json`, `attribution.json` (with a real
    `https://threeui.com/...` item page — do not invent one), `src/cards/presets.tsx` (with pinned
@@ -69,8 +72,11 @@ it without re-reading that constraint.
   constants Three removed in r152. On the pinned runtime the assignment is a no-op and the
   renderer keeps its default sRGB output. The build prints a warning for each. The warnings are
   deliberately left visible; do not silence them without recording why.
-- The shared runtime chunk is ~219 KiB gzipped, dominated by Three.js at ~139 KiB. It is a page
+- The shared runtime figure is ~212 KiB gzipped, dominated by Three.js at ~139 KiB. It is a page
   cost, reported once, and is not charged to any card.
+- The bundler's minifier is a platform-specific native binary, so a card figure can move by a few
+  hundred bytes between macOS and Linux. The gate allows 1024 bytes of drift and prints a warning
+  when it uses that allowance. Over budget is always a hard fail.
 - The vendored modules are minified: upstream publishes no original source and no `.js.map` files.
   The type declarations are what make them reviewable.
 

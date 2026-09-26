@@ -32,7 +32,7 @@ npm run verify     # typecheck, lint, test, build, and the byte budget
 | Command | What it does |
 |---|---|
 | `npm run build` | Build the site and regenerate `src/lib/card-bytes.json` from the emitted bundle. |
-| `npm run build:check` | Same, but fails if any card is over budget or the committed figures are stale. |
+| `npm run build:check` | Same, but fails if any card is over budget or the committed figures moved beyond tolerance. |
 | `npm run budget` | Re-measure the existing `dist/` and enforce the per-card ceiling. |
 | `npm run vendor:sync` | Re-download the upstream tarball and rewrite `vendor/threeui/`. |
 | `npm run vendor:check` | Fail if `vendor/threeui/` has drifted from the published tarball. |
@@ -46,11 +46,18 @@ No vendor publishes per-component sizes, so this repository owns the measurement
 - its own JavaScript chunk, gzipped, after tree-shaking; plus
 - the raw byte size of any binary asset that chunk references.
 
-Shared runtime (React, Three.js, the page stylesheet) is measured and reported **once at page
-level** and is never charged to a single card, because no single card causes it.
+Shared runtime (React, Three.js, shared vendor modules, the page stylesheet) is measured and reported
+**once at page level** and is never charged to a single card, because no single card causes it. The
+entry chunk is measured separately as the *page shell* and is deliberately **not** printed on the page:
+the entry chunk contains the report, so a figure that counted its own chunk could never settle.
 
-Sourcemaps and the HTML document are excluded: a browser does not fetch a sourcemap, and the
-document is a page cost rather than a card cost.
+Sourcemaps and the HTML document are excluded: a browser does not fetch a sourcemap, and the document
+is a page cost rather than a card cost.
+
+**Cross-machine tolerance.** The bundler's minifier ships a platform-specific native binary, so a card
+figure can move by a few hundred bytes between a macOS build machine and a Linux one. A card may move up
+to 1024 bytes without failing the gate; exceeding the 150 KiB ceiling always fails regardless. The
+tolerance is recorded in `budget.json` rather than hidden in the script.
 
 The gate is `scripts/measure-bytes.mjs`. It fails the build when a card is over the ceiling, when
 a card has no chunk, when a card references an asset that was never emitted, or when

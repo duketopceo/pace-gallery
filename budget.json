@@ -5,10 +5,12 @@
   "counts": {
     "ownChunkGzip": "Gzipped bytes of the card's own JavaScript chunk, after tree-shaking, excluding shared chunks.",
     "assetBytes": "Raw (uncompressed) bytes of textures, models, HDRIs and fonts the card references. Zero for every card here: all 17 are procedural shader or DOM cards with no binary assets.",
-    "sharedRuntimeGzip": "Gzipped bytes of chunks shared by every card (React, Three.js, shared vendor modules). Reported once at page level, never charged to a single card, because no single card causes it."
+    "sharedRuntimeGzip": "Gzipped bytes of chunks shared by every card (React, Three.js, shared vendor modules). Reported once at page level, never charged to a single card, because no single card causes it.",
+    "pageShellGzip": "Gzipped bytes of the entry chunk. Measured and recorded for auditing, but never printed on the page: the entry chunk contains the byte report, so a page figure that counted its own chunk could never settle. Nothing is hidden; it is one line of CLI output and one field in card-bytes.json."
   },
   "doesNotCount": [
     "sourcemap files, which are a debugging aid and are not fetched by a browser",
     "the HTML document and page CSS, which are page-level rather than per-card costs"
-  ]
+  ],
+  "crossMachineTolerance": "A card figure may move by up to 1024 bytes between build machines without failing the gate. The bundler's minifier ships a platform-specific native binary, so macOS and Linux output is not byte-identical. Exceeding the per-card ceiling is always a hard fail regardless of tolerance."
 }

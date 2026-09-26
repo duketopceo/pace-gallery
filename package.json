@@ -9,8 +9,8 @@
     "node": ">=20.19"
   },
   "scripts": {
-    "build": "node scripts/build-static.mjs",
-    "build:check": "node scripts/build-static.mjs --check",
+    "build": "vite build && node scripts/measure-bytes.mjs --write",
+    "build:check": "vite build && node scripts/measure-bytes.mjs --check",
     "dev": "vite",
     "preview": "vite preview",
     "test": "vitest run",
