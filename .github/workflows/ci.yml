@@ -33,6 +33,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # The compliance suite checks the bundle. This checks the origin: the isolation
+      # controls that keep unreviewed pull-request code away from the published site, and
+      # away from the product services that share the host.
+      - name: Gate the deploy target
+        run: npm run deploy:check
+
       # Build before test. Several tests assert against the emitted bundle, so a test run with no
       # dist/ directory is a false negative rather than a pass.
       - name: Build and enforce the per-card byte budget
