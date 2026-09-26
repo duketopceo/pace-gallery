@@ -1,0 +1,77 @@
+{
+  "$comment": "Allowlist of vendored source. Only iframe-free, composable component modules are vendored. See vendor/threeui/README.md for the rationale and the rejection list.",
+  "package": "@designcodeio/threeui",
+  "version": "1.2.0",
+  "tarball": "https://registry.npmjs.org/@designcodeio/threeui/-/threeui-1.2.0.tgz",
+  "tarballIntegrity": "sha512-E6F/+IPfLKYatB5W62H3gK1bp9WYvfO6xuWBaBh8oLVR7fbTeeEwgLqqy7ZPMA0zmDpAy03nKYOIswBXsstL2g==",
+  "licenseFiles": [
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "FONT-LICENSES.md",
+    "ASSET-LICENSES.md"
+  ],
+  "styleSheets": [
+    "lib-dist/style.css"
+  ],
+  "$renameComment": "Applied by scripts/sync-vendor.mjs to the vendored text files, and re-applied in --check mode so drift is still caught. The MIT licence permits modification and the notice obligation is unaffected. The upstream project name is a product name, not a licence grant: these tokens reach the rendered DOM as CSS class names, or ship in the bundle as a canvas font stack, so the product must not carry them.",
+  "renameTokens": [
+    [
+      "THREEUI",
+      "DEMO"
+    ],
+    [
+      "threeui-",
+      "pg-"
+    ],
+    [
+      "ThreeUILaserVariant",
+      "LaserVariantName"
+    ],
+    [
+      "\"ThreeUI Fragment Mono\", ",
+      ""
+    ],
+    [
+      "\"ThreeUI Fragment Mono\",",
+      ""
+    ],
+    [
+      "ThreeUI Fragment Mono,",
+      "ui-monospace,"
+    ],
+    [
+      "ThreeUI Fragment Mono",
+      "ui-monospace"
+    ]
+  ],
+  "$stripComment": "Removed from the vendored text files by scripts/sync-vendor.mjs, and removed again in --check mode so drift is still caught. The upstream stylesheet inlines a base64 WOFF2 under the family name 'ThreeUI Fragment Mono'. Stripping the @font-face rule drops roughly 40 KiB of base64 from the page CSS, removes a bundled OFL font and its notice obligation, and removes a vendor product name from a font-family declaration this product would otherwise ship. The rest of the font stack is a system monospace chain, which is what the components already fall back to.",
+  "stripPatterns": [
+    [
+      "@font-face\\{[^}]*\\}",
+      ""
+    ],
+    [
+      "ui-monospace,ui-monospace,",
+      "ui-monospace,"
+    ]
+  ],
+  "moduleDirs": [
+    "lib-dist/shaders/animated-top-dock",
+    "lib-dist/shaders/bell-field",
+    "lib-dist/shaders/condensation",
+    "lib-dist/shaders/crt",
+    "lib-dist/shaders/dot-matrix",
+    "lib-dist/shaders/emerald-horizon",
+    "lib-dist/shaders/liquid-form",
+    "lib-dist/shaders/laser",
+    "lib-dist/shaders/lumen-cta",
+    "lib-dist/shaders/orbital-sphere",
+    "lib-dist/shaders/ribbon-field",
+    "lib-dist/shaders/skeuomorphic-toggle",
+    "lib-dist/shaders/stream-convergence",
+    "lib-dist/shaders/structure-flow",
+    "lib-dist/shaders/temple-night",
+    "lib-dist/shaders/typography-vortex",
+    "lib-dist/shaders/warp-field"
+  ]
+}

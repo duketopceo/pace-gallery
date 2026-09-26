@@ -1,0 +1,196 @@
+{
+  "$schema": "./docs/cards.schema.md",
+  "$comment": "Single source of truth for the gallery. Read by the Vite build (chunking), the byte-measurement gate, the page, and the tests. `moduleDir` must match an entry in vendor/threeui.manifest.json.",
+  "sourcePackage": "@designcodeio/threeui@1.2.0",
+  "sourceLicence": "MIT",
+  "sourceNoticeRequired": true,
+  "cards": [
+    {
+      "id": "bell-field",
+      "name": "Bell Field",
+      "category": "background",
+      "module": "bell-field/BellFieldBackground",
+      "sourcePath": "/backgrounds/portal-field/bell-field",
+      "requiresGpu": true,
+      "render": "raw-webgl",
+      "description": "Rain-lit bell field: a full-bleed shader plate with ember drift and a pointer-reactive strike.",
+      "still": { "pattern": "rain", "from": "#0b1220", "via": "#1d3b6e", "to": "#8fb4ff" }
+    },
+    {
+      "id": "dot-matrix",
+      "name": "Dot Matrix",
+      "category": "background",
+      "module": "dot-matrix/DotMatrixBackground",
+      "sourcePath": "/three-js/structure-flow/dot-matrix",
+      "requiresGpu": true,
+      "render": "three",
+      "description": "Instanced dot lattice on a curved plane, pulsing outward from the pointer.",
+      "still": { "pattern": "dots", "from": "#04121a", "via": "#0f5f6b", "to": "#7ff0d8" }
+    },
+    {
+      "id": "emerald-horizon",
+      "name": "Emerald Horizon",
+      "category": "background",
+      "module": "emerald-horizon/EmeraldHorizonBackground",
+      "sourcePath": "/three-js/structure-flow/emerald-horizon",
+      "requiresGpu": true,
+      "render": "three",
+      "description": "Layered wave horizon that reads as a slow aurora over a dark sea.",
+      "still": { "pattern": "horizon", "from": "#02120d", "via": "#0b6b4a", "to": "#b9ffe2" }
+    },
+    {
+      "id": "orbital-sphere",
+      "name": "Orbital Sphere",
+      "category": "background",
+      "module": "orbital-sphere/OrbitalSphereBackground",
+      "sourcePath": "/three-js/structure-flow/orbital-sphere",
+      "requiresGpu": true,
+      "render": "three",
+      "description": "A wireframe globe with a satellite band, drifting on a slow orbital tilt.",
+      "still": { "pattern": "orbit", "from": "#0a0a14", "via": "#3b2f7a", "to": "#c3b6ff" }
+    },
+    {
+      "id": "structure-flow",
+      "name": "Structure Flow",
+      "category": "background",
+      "module": "structure-flow/StructureFlowBackground",
+      "sourcePath": "/three-js/structure-flow/structure-flow",
+      "requiresGpu": true,
+      "render": "three",
+      "description": "Contour lines that flow across a displaced surface, like a topographic scan.",
+      "still": { "pattern": "contour", "from": "#0d0d0f", "via": "#4a4a55", "to": "#e6e6ef" }
+    },
+    {
+      "id": "warp-field",
+      "name": "Warp Field",
+      "category": "background",
+      "module": "warp-field/WarpFieldBackground",
+      "sourcePath": "/three-js/warp-field/streaks",
+      "requiresGpu": true,
+      "render": "three",
+      "description": "Radial streaks that accelerate toward a vanishing point.",
+      "still": { "pattern": "streaks", "from": "#12040a", "via": "#7a1b46", "to": "#ffd6a5" }
+    },
+    {
+      "id": "liquid-form",
+      "name": "Liquid Form",
+      "category": "background",
+      "module": "liquid-form/LiquidFormBackground",
+      "sourcePath": "/backgrounds/liquid-form",
+      "requiresGpu": true,
+      "render": "raw-webgl",
+      "description": "A metallic blob that morphs under the pointer, lit as if chrome.",
+      "still": { "pattern": "blob", "from": "#101018", "via": "#5a5f74", "to": "#f2f5ff" }
+    },
+    {
+      "id": "ribbon-field",
+      "name": "Ribbon Field",
+      "category": "background",
+      "module": "ribbon-field/RibbonFieldBackground",
+      "sourcePath": "/backgrounds/predictive-arc/ribbon-field",
+      "requiresGpu": true,
+      "render": "raw-webgl",
+      "description": "Smoothed ribbons trailing a pointer through a dark field.",
+      "still": { "pattern": "ribbon", "from": "#08060f", "via": "#5b2a86", "to": "#f0b6ff" }
+    },
+    {
+      "id": "condensation",
+      "name": "Condensation",
+      "category": "background",
+      "module": "condensation/CondensationBackground",
+      "sourcePath": "/backgrounds/elements/condensation",
+      "requiresGpu": false,
+      "render": "canvas2d",
+      "description": "Droplets gathering and running down a cold pane. Canvas 2D, no GPU required.",
+      "still": { "pattern": "drops", "from": "#061019", "via": "#1b4963", "to": "#a8e6f0" }
+    },
+    {
+      "id": "stream-convergence",
+      "name": "Stream Convergence",
+      "category": "background",
+      "module": "stream-convergence/StreamConvergenceBackground",
+      "sourcePath": "/backgrounds/portal-field/stream-convergence",
+      "requiresGpu": false,
+      "render": "canvas2d",
+      "description": "Vector streams funnelling into a single point of light. Canvas 2D, no GPU required.",
+      "still": { "pattern": "stream", "from": "#0a0714", "via": "#432a8f", "to": "#ffe9b0" }
+    },
+    {
+      "id": "temple-night",
+      "name": "Temple Night",
+      "category": "scene",
+      "module": "temple-night/TempleNightScene",
+      "sourcePath": "/three-js/temple-night/temple-night",
+      "requiresGpu": true,
+      "render": "three",
+      "description": "A lit pavilion over still water, with stars and a slow camera drift.",
+      "still": { "pattern": "horizon", "from": "#050a18", "via": "#1d3f6e", "to": "#ffe9b8" }
+    },
+    {
+      "id": "crt",
+      "name": "CRT Screen",
+      "category": "effect",
+      "module": "crt/CrtBackground",
+      "sourcePath": "/backgrounds/crt/terminal",
+      "requiresGpu": true,
+      "render": "raw-webgl",
+      "description": "Scanlines, barrel distortion and phosphor bloom over a live terminal screen.",
+      "still": { "pattern": "scanlines", "from": "#04140a", "via": "#0f7a3d", "to": "#b6ffcf" }
+    },
+    {
+      "id": "atmospheric-blade",
+      "name": "Atmospheric Blade",
+      "category": "effect",
+      "module": "laser/LaserVariants",
+      "sourcePath": "/backgrounds/matrix-field/atmospheric-blade",
+      "requiresGpu": true,
+      "render": "raw-webgl",
+      "description": "A hard light blade that refracts into a prism halo. Honours reduced motion upstream.",
+      "still": { "pattern": "blade", "from": "#0c0413", "via": "#6a1fa8", "to": "#ffd7ff" }
+    },
+    {
+      "id": "typography-vortex",
+      "name": "Typography Vortex",
+      "category": "text",
+      "module": "typography-vortex/TypographyVortexCanvas",
+      "sourcePath": "/text-animation/typography-vortex",
+      "requiresGpu": false,
+      "render": "canvas2d",
+      "description": "A phrase pulled apart into particles and drawn back into rings. Canvas 2D.",
+      "still": { "pattern": "rings", "from": "#0b0b10", "via": "#6a6a7a", "to": "#ffffff" }
+    },
+    {
+      "id": "glass-toggle",
+      "name": "Glass Toggle",
+      "category": "control",
+      "module": "skeuomorphic-toggle/GlassToggle",
+      "sourcePath": "/ui-elements/skeuomorphic-toggle/glass",
+      "requiresGpu": true,
+      "render": "three",
+      "description": "A real switch: the only interactive control in the entire source catalogue.",
+      "still": { "pattern": "toggle", "from": "#0e1014", "via": "#3a4356", "to": "#dfe7f5" }
+    },
+    {
+      "id": "lumen-cta",
+      "name": "Lumen CTA",
+      "category": "control",
+      "module": "lumen-cta/LumenCta",
+      "sourcePath": "/buttons/rectangle-buttons/lumen-cta",
+      "requiresGpu": false,
+      "render": "dom",
+      "description": "A call-to-action pill with a rotating conic ring. No canvas, no GPU.",
+      "still": { "pattern": "pill", "from": "#0b0b0e", "via": "#4d4a63", "to": "#f5f0ff" }
+    },
+    {
+      "id": "top-dock",
+      "name": "Top Dock",
+      "category": "motion",
+      "module": "animated-top-dock/AnimatedTopDock",
+      "sourcePath": "/css/animated-top-dock/sable",
+      "requiresGpu": true,
+      "render": "three",
+      "description": "A dock that grows toward the pointer, with particle and pixel field variants.",
+      "still": { "pattern": "dock", "from": "#08090c", "via": "#37424f", "to": "#cfe3ff" }
+    }
+  ]
+}
