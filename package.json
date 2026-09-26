@@ -1,0 +1,44 @@
+{
+  "name": "pace-gallery",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pace HQ public component card gallery. Static build, no runtime, no tracking.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "build": "node scripts/build-static.mjs",
+    "build:check": "node scripts/build-static.mjs --check",
+    "dev": "vite",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "budget": "node scripts/measure-bytes.mjs --check",
+    "vendor:sync": "node scripts/sync-vendor.mjs",
+    "verify": "npm run typecheck && npm run lint && npm run test && npm run build:check",
+    "vendor:check": "node scripts/sync-vendor.mjs --check"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@types/node": "22.20.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.186.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "eslint": "9.39.5",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "16.5.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.70.1",
+    "vite": "8.3.1",
+    "vitest": "5.0.2"
+  }
+}
