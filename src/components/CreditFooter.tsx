@@ -34,7 +34,7 @@ export function CreditFooter() {
         <h2 id="credit-heading">Credit and licence</h2>
         <p>
           Every component on this page is derived from <code>{CREDIT.package}</code> v{CREDIT.version},
-          redistributed under the {CREDIT.licence} licence, {CREDIT.copyright}. The full notice is
+          redistributed under the {CREDIT.license} licence, {CREDIT.copyright}. The full notice is
           reproduced in <code>THIRD_PARTY_NOTICES.md</code> in the repository, and every card is mapped
           to its source page in <code>attribution.json</code>.
         </p>

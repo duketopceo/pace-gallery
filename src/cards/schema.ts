@@ -73,7 +73,7 @@ export interface GalleryManifest {
 export interface AttributionRecord {
   id: string;
   sourceUrl: string;
-  licence: string;
+  license: string;
   copyright: string;
   vendoredPath: string;
   additionalNotices: string[];
@@ -82,23 +82,39 @@ export interface AttributionRecord {
 export interface ThirdPartyNotice {
   id: string;
   name: string;
-  licence: string;
+  license: string;
   appliesTo: string[];
-  reservedFontNames?: string[];
+  reservedFontNames?: ReservedFontName[];
   notice: string;
+}
+
+/**
+ * An OFL 1.1 Reserved Font Name the upstream package ships.
+ *
+ * `upstreamFamily` is deliberately a placeholder in this repository. An OFL Reserved Font Name may
+ * not be used by a derivative work, so the record states that one exists and points at the upstream
+ * licence file rather than reproducing the string. The compliance test sweeps the built bundle for
+ * the name to keep it that way.
+ */
+export interface ReservedFontName {
+  upstreamFamily: string;
+  license: string;
+  reserved: boolean;
+  usedHere: boolean;
+  note: string;
 }
 
 export interface AttributionFile {
   upstream: {
     package: string;
     version: string;
-    licence: string;
+    license: string;
     copyright: string;
     catalogue: string;
-    licenceFile: string;
+    licenseFile: string;
     noticeFile: string;
-    assetLicenceFile: string;
-    fontLicenceFile: string;
+    assetLicenseFile: string;
+    fontLicenseFile: string;
     notice: string;
     modification: string;
   };

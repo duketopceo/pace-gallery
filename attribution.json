@@ -1,16 +1,17 @@
 {
   "$comment": "The auditable record of the MIT notice-retention obligation. Every card in cards.json must appear in `cards` below and vice versa; `tests/attribution.test.ts` enforces that.",
   "generatedFrom": "cards.json",
+  "minCards": 12,
   "upstream": {
     "package": "@designcodeio/threeui",
     "version": "1.2.0",
-    "licence": "MIT",
+    "license": "MIT",
     "copyright": "Copyright (c) 2026 Meng To",
     "catalogue": "https://threeui.com",
-    "licenceFile": "vendor/threeui/LICENSE",
+    "licenseFile": "vendor/threeui/LICENSE",
     "noticeFile": "vendor/threeui/THIRD_PARTY_NOTICES.md",
-    "assetLicenceFile": "vendor/threeui/ASSET-LICENSES.md",
-    "fontLicenceFile": "vendor/threeui/FONT-LICENSES.md",
+    "assetLicenseFile": "vendor/threeui/ASSET-LICENSES.md",
+    "fontLicenseFile": "vendor/threeui/FONT-LICENSES.md",
     "notice": "Component source in this gallery is redistributed under the MIT License, Copyright (c) 2026 Meng To. The MIT notice is reproduced in full in THIRD_PARTY_NOTICES.md and rendered in the page footer. This is a source licence, not a trademark licence: this gallery is not affiliated with, endorsed by, or branded as the upstream project.",
     "modification": "The vendored source is modified in two documented, mechanical ways, both applied by scripts/sync-vendor.mjs and both re-verified by `npm run vendor:check` against the published tarball: a token rename that moves the upstream product name out of CSS class names and font stacks, and a strip of the inlined @font-face rule. The MIT notice obligation is unaffected. See vendor/threeui/README.md."
   },
@@ -18,7 +19,7 @@
     {
       "id": "three",
       "name": "Three.js",
-      "licence": "MIT",
+      "license": "MIT",
       "appliesTo": [
         "dot-matrix",
         "emerald-horizon",
@@ -34,7 +35,7 @@
     {
       "id": "react",
       "name": "React and React DOM",
-      "licence": "MIT",
+      "license": "MIT",
       "appliesTo": [
         "*"
       ],
@@ -43,24 +44,32 @@
     {
       "id": "nasa-blue-marble",
       "name": "NASA Blue Marble land mask",
-      "licence": "Public domain (NASA)",
+      "license": "Public domain (NASA)",
       "appliesTo": [],
       "notice": "The upstream source tree carries a NASA Blue Marble land-mask attribution inside its globe items. No card in this gallery derives from those items, so no NASA notice is required for anything that ships here. The notice is recorded so that the next person who adds a globe item knows it is owed."
     },
     {
       "id": "bundled-fonts",
       "name": "Bundled OFL fonts (Fragment Mono, Instrument Serif, Newsreader, Onest)",
-      "licence": "SIL Open Font License 1.1",
+      "license": "SIL Open Font License 1.1",
       "appliesTo": [],
-      "reservedFontNames": [],
-      "notice": "The upstream stylesheet inlines a base64 WOFF2 under the family name \"ThreeUI Fragment Mono\" (SIL Open Font License 1.1, The Fragment-Mono Project Authors, no Reserved Font Name). This gallery strips the @font-face rule at vendor time, recorded in vendor/threeui.manifest.json and re-checked by `npm run vendor:check`, so no font file, no base64 font payload and no font licence obligation ships here. Every typography-driven card uses the system UI and monospace stacks. Lexend, which upstream also bundles, carries the Reserved Font Name \"RevReading Lexend\"; it is not used, and no derivative in this repository uses that word."
+      "reservedFontNames": [
+        {
+          "upstreamFamily": "withheld",
+          "license": "SIL Open Font License 1.1",
+          "reserved": true,
+          "usedHere": false,
+          "note": "The upstream package bundles one OFL 1.1 font whose licence carries a Reserved Font Name. The name is recorded, not printed: an OFL Reserved Font Name may not be used by a derivative work, so this file, the built page and every shipped chunk omit it. It is not used by any card. `vendor/threeui/FONT-LICENSES.md` holds the upstream text."
+        }
+      ],
+      "notice": "The upstream stylesheet inlines a base64 WOFF2 under the family name \"ThreeUI Fragment Mono\" (SIL Open Font License 1.1, The Fragment-Mono Project Authors, no Reserved Font Name). This gallery strips the @font-face rule at vendor time, recorded in vendor/threeui.manifest.json and re-checked by `npm run vendor:check`, so no font file, no base64 font payload and no font licence obligation ships here. Every typography-driven card uses the system UI and monospace stacks. The upstream package also bundles a second OFL 1.1 font whose licence reserves its family name; that name is deliberately not reproduced anywhere in this repository or on the built page, and no card uses it. See `reservedFontNames` above."
     }
   ],
   "cards": [
     {
       "id": "bell-field",
       "sourceUrl": "https://threeui.com/backgrounds/portal-field/bell-field",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/bell-field",
       "additionalNotices": []
@@ -68,7 +77,7 @@
     {
       "id": "dot-matrix",
       "sourceUrl": "https://threeui.com/three-js/structure-flow/dot-matrix",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/dot-matrix",
       "additionalNotices": []
@@ -76,7 +85,7 @@
     {
       "id": "emerald-horizon",
       "sourceUrl": "https://threeui.com/three-js/structure-flow/emerald-horizon",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/emerald-horizon",
       "additionalNotices": []
@@ -84,7 +93,7 @@
     {
       "id": "orbital-sphere",
       "sourceUrl": "https://threeui.com/three-js/structure-flow/orbital-sphere",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/orbital-sphere",
       "additionalNotices": []
@@ -92,7 +101,7 @@
     {
       "id": "structure-flow",
       "sourceUrl": "https://threeui.com/three-js/structure-flow/structure-flow",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/structure-flow",
       "additionalNotices": []
@@ -100,7 +109,7 @@
     {
       "id": "warp-field",
       "sourceUrl": "https://threeui.com/three-js/warp-field/streaks",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/warp-field",
       "additionalNotices": []
@@ -108,7 +117,7 @@
     {
       "id": "liquid-form",
       "sourceUrl": "https://threeui.com/backgrounds/liquid-form",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/liquid-form",
       "additionalNotices": []
@@ -116,7 +125,7 @@
     {
       "id": "ribbon-field",
       "sourceUrl": "https://threeui.com/backgrounds/predictive-arc/ribbon-field",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/ribbon-field",
       "additionalNotices": []
@@ -124,7 +133,7 @@
     {
       "id": "condensation",
       "sourceUrl": "https://threeui.com/backgrounds/elements/condensation",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/condensation",
       "additionalNotices": []
@@ -132,7 +141,7 @@
     {
       "id": "stream-convergence",
       "sourceUrl": "https://threeui.com/backgrounds/portal-field/stream-convergence",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/stream-convergence",
       "additionalNotices": []
@@ -140,7 +149,7 @@
     {
       "id": "temple-night",
       "sourceUrl": "https://threeui.com/three-js/temple-night/temple-night",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/temple-night",
       "additionalNotices": [
@@ -150,7 +159,7 @@
     {
       "id": "crt",
       "sourceUrl": "https://threeui.com/backgrounds/crt/terminal",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/crt",
       "additionalNotices": []
@@ -158,7 +167,7 @@
     {
       "id": "atmospheric-blade",
       "sourceUrl": "https://threeui.com/backgrounds/matrix-field/atmospheric-blade",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/laser",
       "additionalNotices": []
@@ -166,7 +175,7 @@
     {
       "id": "typography-vortex",
       "sourceUrl": "https://threeui.com/text-animation/typography-vortex",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/typography-vortex",
       "additionalNotices": []
@@ -174,7 +183,7 @@
     {
       "id": "glass-toggle",
       "sourceUrl": "https://threeui.com/ui-elements/skeuomorphic-toggle/glass",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/skeuomorphic-toggle",
       "additionalNotices": [
@@ -184,7 +193,7 @@
     {
       "id": "lumen-cta",
       "sourceUrl": "https://threeui.com/buttons/rectangle-buttons/lumen-cta",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/lumen-cta",
       "additionalNotices": []
@@ -192,7 +201,7 @@
     {
       "id": "top-dock",
       "sourceUrl": "https://threeui.com/css/animated-top-dock/sable",
-      "licence": "MIT",
+      "license": "MIT",
       "copyright": "Copyright (c) 2026 Meng To",
       "vendoredPath": "vendor/threeui/lib/animated-top-dock",
       "additionalNotices": []

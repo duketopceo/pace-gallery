@@ -26,7 +26,7 @@ const bytes = byteReport as ByteReport;
 
 export interface Card extends CardDefinition {
   sourceUrl: string;
-  licence: string;
+  license: string;
   copyright: string;
   additionalNotices: readonly string[];
   bytes: CardMeasurement;
@@ -43,7 +43,7 @@ function buildCard(definition: CardDefinition): Card {
   return {
     ...definition,
     sourceUrl: record.sourceUrl,
-    licence: record.licence,
+    license: record.license,
     copyright: record.copyright,
     additionalNotices: record.additionalNotices,
     bytes: measured ?? { jsGzip: 0, assetBytes: 0 },
@@ -60,7 +60,7 @@ export const CARDS: readonly Card[] = cardManifest.cards.map(buildCard);
 export const CREDIT = {
   package: attributionFile.upstream.package,
   version: attributionFile.upstream.version,
-  licence: attributionFile.upstream.licence,
+  license: attributionFile.upstream.license,
   copyright: attributionFile.upstream.copyright,
   modification: attributionFile.upstream.modification,
 } as const;

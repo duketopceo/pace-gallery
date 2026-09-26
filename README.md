@@ -17,25 +17,42 @@ npm ci
 npm run build
 ```
 
-That is the one command. It runs `vite build` and then measures the emitted bundle, and it needs
-no network access after `npm ci` — the component source is committed under
-[`vendor/threeui/`](vendor/threeui/README.md), and nothing in the build contacts the vendor.
+That is the one command. It runs `vite build`, emits the licence record into `dist/`, then measures
+the emitted bundle. It needs no network access after `npm ci` — the component source is committed
+under [`vendor/threeui/`](vendor/threeui/README.md), and nothing in the build contacts the vendor.
 
 To develop: `npm run dev`. To serve the built output: `npm run preview`.
 
 Full gate, which is what CI runs:
 
 ```
-npm run verify     # typecheck, lint, test, build, and the byte budget
+npm run verify     # typecheck, lint, build, test, then the deploy gate and the byte budget
 ```
 
 | Command | What it does |
 |---|---|
-| `npm run build` | Build the site and regenerate `src/lib/card-bytes.json` from the emitted bundle. |
-| `npm run build:check` | Same, but fails if any card is over budget or the committed figures moved beyond tolerance. |
+| `npm run build` | Build the site, emit `dist/attribution.json`, and regenerate `src/lib/card-bytes.json` from the emitted bundle. |
+| `npm run check` | The deploy gate: licence and asset integrity, then the per-card byte ceiling. |
+| `npm run build:check` | Same as `build`, but fails if any card is over budget or the committed figures moved beyond tolerance. |
+| `npm run check:licence` | The licence and asset-integrity gate alone. |
 | `npm run budget` | Re-measure the existing `dist/` and enforce the per-card ceiling. |
 | `npm run vendor:sync` | Re-download the upstream tarball and rewrite `vendor/threeui/`. |
 | `npm run vendor:check` | Fail if `vendor/threeui/` has drifted from the published tarball. |
+
+### The deploy gate is vendored, not reimplemented
+
+`npm run check` runs two gates. The first is [`scripts/check-dist.mjs`](scripts/check-dist.mjs), a
+byte-for-byte copy of the deploy gate that owns this build ([DUK-75](/DUK/issues/DUK-75), HEAD
+`0679e02`), sha256 `6ff57bae0af54ca39d596e4a368fbfe6037e11a1fb96a7009ce60afb6b71db37`. It is copied
+rather than reimplemented on purpose: its value is that it is *the same file the pipeline runs*, so
+this repository rehearses the real gate instead of a lookalike that can drift. Do not edit it — the
+one lint suppression it needs is scoped in `eslint.config.js` with the reason.
+
+The second gate is `scripts/measure-bytes.mjs`, the per-card byte ceiling below. The deploy gate does
+not cover byte cost, so the two are complementary rather than redundant.
+
+The build is arranged around the pipeline's two-command contract: `npm run build` then
+`npm run check`, with `dist/` as the only thing either needs to agree on.
 
 ## The per-card byte budget
 
@@ -107,7 +124,7 @@ accessible name. `tests/` pins that every card has one.
 | `src/components/CardStage.tsx` | The live-or-still decision, per card. |
 | `src/lib/card-bytes.json` | Generated. The figures the page prints. Never hand-edited. |
 | `vendor/threeui/` | Committed component source, its licences, and the full rationale. |
-| `scripts/` | Vendor sync, the static build loop, and the byte gate. |
+| `scripts/` | Vendor sync, attribution emission, the byte gate, and the vendored deploy gate. |
 
 ## Licence position
 
@@ -120,6 +137,12 @@ accessible name. `tests/` pins that every card has one.
   by or sponsored by the upstream project, and it is not named after it.
 - No font is bundled and no font licence is owed. Upstream inlines an OFL font in its stylesheet;
   that `@font-face` rule is stripped at vendor time.
+- The upstream package also bundles a second OFL font whose licence reserves its family name. That
+  name is recorded in `attribution.json` as a withheld fact and is deliberately not reproduced
+  anywhere in this repository or on the built page; no card uses it. The upstream text is in
+  `vendor/threeui/FONT-LICENSES.md`.
 
 `tests/compliance.test.ts` enforces the branding, font and tracking rules against the built output
-rather than against intentions.
+rather than against intentions. The notice ships in the served HTML as well as in the rendered
+footer: a static colophon in `index.html` carries the irreducible MIT notice so the obligation is met
+by the artefact and not only by script execution.

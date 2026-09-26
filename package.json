@@ -9,16 +9,18 @@
     "node": ">=20.19"
   },
   "scripts": {
-    "build": "vite build && node scripts/measure-bytes.mjs --write",
-    "build:check": "vite build && node scripts/measure-bytes.mjs --check",
+    "build": "vite build && node scripts/emit-attribution.mjs && node scripts/measure-bytes.mjs --write",
+    "build:check": "vite build && node scripts/emit-attribution.mjs && node scripts/measure-bytes.mjs --check",
     "dev": "vite",
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
+    "check": "node scripts/check-dist.mjs && node scripts/measure-bytes.mjs --check",
+    "check:licence": "node scripts/check-dist.mjs",
     "budget": "node scripts/measure-bytes.mjs --check",
     "vendor:sync": "node scripts/sync-vendor.mjs",
-    "verify": "npm run typecheck && npm run lint && npm run build && npm run test && npm run budget",
+    "verify": "npm run typecheck && npm run lint && npm run build && npm run test && npm run check",
     "vendor:check": "node scripts/sync-vendor.mjs --check"
   },
   "dependencies": {

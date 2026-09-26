@@ -24,7 +24,7 @@ describe('attribution.json', () => {
 
   it('records the MIT licence and upstream copyright for every card', () => {
     for (const entry of attribution.cards) {
-      expect(entry.licence, `${entry.id} licence`).toBe('MIT');
+      expect(entry.license, `${entry.id} licence`).toBe('MIT');
       expect(entry.copyright, `${entry.id} copyright`).toBe('Copyright (c) 2026 Meng To');
     }
   });
@@ -36,12 +36,12 @@ describe('attribution.json', () => {
   });
 
   it('carries the upstream notice and names the licence files that hold the full text', () => {
-    expect(CREDIT.licence).toBe('MIT');
+    expect(CREDIT.license).toBe('MIT');
     expect(CREDIT.copyright).toBe('Copyright (c) 2026 Meng To');
     expect(UPSTREAM_NOTICE).toMatch(/MIT License/);
     expect(UPSTREAM_NOTICE).toMatch(/not affiliated with, endorsed by/);
     expect(CREDIT.modification).toMatch(/MIT notice obligation is unaffected/);
-    for (const key of ['licenceFile', 'noticeFile', 'assetLicenceFile', 'fontLicenceFile'] as const) {
+    for (const key of ['licenseFile', 'noticeFile', 'assetLicenseFile', 'fontLicenseFile'] as const) {
       expect(readFileSync(new URL(`../${attribution.upstream[key]}`, import.meta.url), 'utf8')).toBeTruthy();
     }
   });
@@ -57,8 +57,14 @@ describe('third-party notices', () => {
   it('bundles no OFL font, so no Reserved Font Name can be infringed', () => {
     const fonts = attribution.thirdParty.find((entry) => entry.id === 'bundled-fonts');
     expect(fonts, 'the font position must stay recorded').toBeDefined();
+    // No bundled font means no derivative work, so no reserved name can be infringed. Asserting
+    // that the reserved-name *list* is empty was the wrong check: the upstream package does bundle
+    // a font with a reserved name, the fact belongs in the record, and the obligation is that no
+    // card uses it and the name is never printed. Both are asserted in tests/compliance.test.ts.
     expect(fonts!.appliesTo).toEqual([]);
-    expect(fonts!.reservedFontNames ?? []).toEqual([]);
+    for (const entry of fonts!.reservedFontNames ?? []) {
+      expect(entry.usedHere, `${entry.upstreamFamily} must be marked as not used here`).toBe(false);
+    }
     expect(fonts!.notice).toMatch(/strips the @font-face rule at vendor time/);
   });
 

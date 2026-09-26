@@ -653,3 +653,32 @@ code {
   font-size: 12.5px;
   color: var(--ink-faint);
 }
+
+/*
+ * The static credit in index.html. It is in the document rather than in a component so the MIT
+ * notice ships without script execution. It is a colophon, not a second footer: a hairline rule and
+ * quieter type keep it reading as the document's own imprint sitting under the rendered footer.
+ */
+.static-credit {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  border-top: 1px solid #1e2230;
+  color: #6f7686;
+  font-size: 0.75rem;
+  line-height: 1.65;
+}
+
+.static-credit p {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.static-credit strong {
+  color: #9aa1b1;
+  font-weight: 600;
+}
+
+.static-credit code {
+  color: #7de2c8;
+}

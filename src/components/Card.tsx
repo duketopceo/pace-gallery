@@ -25,7 +25,7 @@ export function Card({ card, reducedMotion }: { card: Card; reducedMotion: boole
             source
           </a>
           <span aria-hidden="true"> · </span>
-          <span>{card.licence}</span>
+          <span>{card.license}</span>
           {card.additionalNotices.length > 0 ? (
             <details className="card__notice">
               <summary>item notice</summary>
