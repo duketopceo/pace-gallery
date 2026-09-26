@@ -35,6 +35,7 @@ npm run verify     # typecheck, lint, build, test, then the deploy gate and the 
 | `npm run check` | The deploy gate: licence and asset integrity, then the per-card byte ceiling. |
 | `npm run build:check` | Same as `build`, but fails if any card is over budget or the committed figures moved beyond tolerance. |
 | `npm run check:licence` | The licence and asset-integrity gate alone. |
+| `npm run check:claim` | Assert the **published** page ships no telemetry host, that the origin still sends a CSP whose `script-src` allows no third-party origin, and that no cookie is set. Network. Not in `verify`, because it is the one check the build cannot do. |
 | `npm run budget` | Re-measure the existing `dist/` and enforce the per-card ceiling. |
 | `npm run vendor:sync` | Re-download the upstream tarball and rewrite `vendor/threeui/`. |
 | `npm run vendor:check` | Fail if `vendor/threeui/` has drifted from the published tarball. |
@@ -53,6 +54,49 @@ not cover byte cost, so the two are complementary rather than redundant.
 
 The build is arranged around the pipeline's two-command contract: `npm run build` then
 `npm run check`, with `dist/` as the only thing either needs to agree on.
+
+## The "no analytics script" claim, and how it is checked
+
+This README opens by saying there is no runtime, no database, no analytics script and no cookie.
+That is a promise about the delivered page, so it is treated as a promise with a check behind it
+rather than as a description.
+
+The build-side check is already here: `tests/compliance.test.ts` asserts that the built document has
+no third-party subresource, and `AGENTS.md` rule 8 forbids adding one. That check has a blind spot,
+and it is worth naming because it is not obvious. Cloudflare Web Analytics is enabled on the
+`pacehq.io` zone, and it injects
+
+```html
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/..." data-cf-beacon='{"token":"..."}' crossorigin="anonymous"></script>
+```
+
+into the served HTML **at the edge**. That happens after the build, so `dist/index.html` is clean,
+every build gate stays green, and nothing in this repository changes when the beacon appears or
+disappears. A build gate cannot see it.
+
+`scripts/check-claim.mjs` is the check for the other half. It asserts against the response:
+
+```
+npm run check:claim                                  # https://components.pacehq.io/
+npm run check:claim -- https://some-other-host/       # or point it anywhere
+```
+
+1. the served document names no known telemetry host,
+2. the origin still sends a `Content-Security-Policy` whose `script-src` allows no third-party
+   origin, and
+3. the served document sets no cookie.
+
+Layers 1 and 2 are asserted separately on purpose. Layer 1 is the claim. Layer 2 is what has been
+holding the claim true while Cloudflare injects anyway: the origin sends
+`default-src 'none'; script-src 'self'; ...`, so the beacon is blocked and never executes. That is
+a working control, not an accident, and the page is honest today. But it is a control held in a
+header this repository does not own, so relaxing `script-src` for any reason would silently turn
+analytics on for a page that says it has none.
+
+One detail worth knowing before you trust a green run: the check has to send browser navigation
+headers (`Accept`, `Sec-Fetch-*`). Cloudflare only injects the beacon into a top-level document
+navigation, so a bare `curl` gets served the un-injected document and reports "clean" on a page that
+is in fact shipping a third-party script. The script sets those headers for that reason.
 
 ## The per-card byte budget
 
