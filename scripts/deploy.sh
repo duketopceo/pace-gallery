@@ -49,8 +49,14 @@ npm run verify
 npm run build
 
 [ -f dist/index.html ] || die "build produced no dist/index.html"
-# The document must not name the vendor. Cheap belt to the compliance suite's braces.
-grep -qi 'threeui' dist/index.html && die "dist/index.html names the vendor; refusing to publish"
+
+# No branding check here on purpose. The vendor name is *required* in the page footer: the
+# attribution notice is a licence obligation, and `npm run verify` already runs the
+# authoritative gate in scripts/check-dist.mjs, which scopes the prohibition to <title> and
+# <h1> and asserts the visible credit is present. An earlier version of this script grepped
+# the whole document for the vendor name and refused to publish, which would have blocked
+# every compliant build. A looser duplicate of a gate that already runs is not a second
+# line of defence; it is a way to fail a good deploy.
 
 # ---------------------------------------------------------------------------
 say "4/5  Shipping to $DEPLOY_HOST:$DEPLOY_ROOT"
