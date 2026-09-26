@@ -68,10 +68,19 @@ compose project, separate release cadence.
 ### Deploy
 
 ```
+git clone https://github.com/duketopceo/pace-gallery.git
+cd pace-gallery
+git checkout main        # the deploy scripts live on main
 bash scripts/deploy.sh
 ```
 
-From a clean checkout that needs `node`, `npm`, `rsync` and SSH access to the origin host. No
+> The repository's default branch is still `feat/component-card-gallery`, a pre-merge
+> snapshot that predates the licence gate and the deploy scripts, and the GitHub App this
+> repository is managed through cannot change the default branch (`403`, no repository
+> administration). So a bare `git clone` lands somewhere that cannot deploy. `git checkout main`
+> is required until someone with repository administration sets the default branch.
+
+From there, a deploy needs `node`, `npm`, `rsync` and SSH access to the origin host. No
 environment file, no secret store and no cloud account — the origin is reached over the operator's
 existing SSH access, so the only credential involved is one the operator already has. Override the
 defaults with `DEPLOY_HOST`, `DEPLOY_ROOT`, `GALLERY_HOST` or `PUBLIC_URL`.
