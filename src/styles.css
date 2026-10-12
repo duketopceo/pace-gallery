@@ -116,6 +116,18 @@ code {
   color: var(--ink-faint);
 }
 
+.masthead__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+}
+
+.masthead__mark {
+  width: 28px;
+  height: 28px;
+}
+
 .masthead__title {
   margin: 0 0 20px;
   font-size: clamp(30px, 5.2vw, 58px);

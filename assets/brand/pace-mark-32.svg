@@ -1,0 +1,2 @@
+<!-- interim (v5 U71/U72) — replace with designer paths; keep viewBox/ids -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Pace"><g fill="currentColor"><rect id="baton" x="6.4" y="4" width="3.7" height="24"/><path id="dial" d="M6.4 13.6A9.6 9.6 0 1 1 16 23.2L16.39 19.49A5.9 5.9 0 1 0 10.1 13.6Z"/></g><circle id="signal" cx="16" cy="13.6" r="3" fill="#D33C11"/></svg>

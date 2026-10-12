@@ -1,0 +1,2 @@
+<!-- interim (v5 U71/U72) — replace with designer paths; keep viewBox/ids -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><style>.ink{fill:#16181A}@media (prefers-color-scheme:dark){.ink{fill:#F3F4F3}}</style><g class="ink"><rect id="baton" x="2.5" y="1" width="2.5" height="14"/><path id="dial" d="M2.5 6.5A5.5 5.5 0 1 1 8 12L8 9.5A3 3 0 1 0 5 6.5Z"/></g><circle id="signal" cx="8" cy="6.5" r="1.7" fill="#D33C11"/></svg>
