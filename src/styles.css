@@ -1,16 +1,50 @@
 /* Pace Gallery — page styles. No CSS framework: the whole page is a grid and a set of stills. */
 
 :root {
-  --ink: #e9ecf3;
-  --ink-dim: #98a0b4;
-  --ink-faint: #6b7387;
-  --page: #07080b;
-  --panel: #0d0f15;
-  --panel-edge: #1b1f2a;
-  --accent: #7de2c8;
-  --radius: 14px;
-  --gap: 22px;
-  color-scheme: dark;
+  /* Pace "Master Clock" tokens (day dial). Source: Pace-Server brand/tokens.css. */
+  --pace-canvas: #f3f4f3;
+  --pace-surface: #fcfcfb;
+  --pace-raised: #ffffff;
+  --pace-hairline: #dcdfdf;
+  --pace-ink: #16181a;
+  --pace-ink-2: #3d4247;
+  --pace-ink-3: #5e656b;
+  --pace-signal: #d33c11;
+  --pace-signal-text: #b7350f;
+  --pace-on-signal: #ffffff;
+  --pace-focus: 0 0 0 2px var(--pace-surface), 0 0 0 4px var(--pace-signal);
+  --pace-radius-control: 4px;
+  --pace-radius-container: 6px;
+  --pace-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Page aliases onto the tokens above. */
+  --ink: var(--pace-ink);
+  --ink-dim: var(--pace-ink-2);
+  --ink-faint: var(--pace-ink-3);
+  --page: var(--pace-canvas);
+  --panel: var(--pace-surface);
+  --panel-edge: var(--pace-hairline);
+  --accent: var(--pace-signal-text);
+  --radius: var(--pace-radius-container);
+  --gap: 20px;
+  color-scheme: light;
+}
+
+/* Night dial: follows the system. No toggle, so nothing is stored on the client. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pace-canvas: #0f1112;
+    --pace-surface: #16191b;
+    --pace-raised: #1d2124;
+    --pace-hairline: #2a2f33;
+    --pace-ink: #ecedec;
+    --pace-ink-2: #b4babe;
+    --pace-ink-3: #8c9398;
+    --pace-signal: #ff6a3d;
+    --pace-signal-text: #ff6a3d;
+    --pace-on-signal: #16181a;
+    color-scheme: dark;
+  }
 }
 
 * {
@@ -45,10 +79,10 @@ code {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--accent);
-  color: #05110d;
+  background: var(--pace-signal);
+  color: var(--pace-on-signal);
   padding: 10px 16px;
-  border-radius: 0 0 8px 0;
+  border-radius: 0 0 var(--pace-radius-control) 0;
   z-index: 10;
 }
 
