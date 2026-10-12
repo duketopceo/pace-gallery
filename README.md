@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/pace-lockup-horizontal-reversed.svg">
+    <img alt="Pace" src="assets/brand/pace-lockup-horizontal.svg" height="40">
+  </picture>
+</p>
+
 # Pace Gallery
 
 A public, static grid of authored WebGL and DOM component cards. Every card shows a live render
@@ -7,8 +14,19 @@ byte cost**, and a source credit line.
 This is a marketing asset. It is not a component library, not a demo playground, and not part of
 any product interface. There is no runtime, no database, no analytics script and no cookie.
 
+![Pace Gallery, light theme](docs/screenshots/after-light.png)
+
 Component source is `@designcodeio/threeui` v1.2.0, MIT licensed. See
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and [attribution.json](attribution.json).
+
+## Quick start
+
+```
+npm ci
+npm run dev        # http://localhost:5173
+```
+
+Requires Node 20.19 or newer.
 
 ## Build
 
@@ -116,3 +134,13 @@ accessible name. `tests/` pins that every card has one.
 
 `tests/compliance.test.ts` enforces the branding, font and tracking rules against the built output
 rather than against intentions.
+
+## Status and design
+
+- Roadmap: [ROADMAP.md](ROADMAP.md). Landscape research: [docs/research/2026-10-10-landscape.md](docs/research/2026-10-10-landscape.md).
+- Visual direction ("Master Clock", from the Pace product): [DESIGN.md](DESIGN.md). Logo files are the interim Pace marks, see [assets/brand/README.md](assets/brand/README.md).
+
+## Contributing
+
+Run `npm run verify` before opening a PR; it is what CI runs. Do not hand-edit `vendor/threeui/lib/` or
+`src/lib/card-bytes.json`. Agent-specific rules are in [AGENTS.md](AGENTS.md).
