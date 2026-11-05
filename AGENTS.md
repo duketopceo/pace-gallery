@@ -27,7 +27,8 @@ it without re-reading that constraint.
 | Command | Use |
 |---|---|
 | `npm run build` | The build. Also regenerates `src/lib/card-bytes.json` from the emitted bundle. |
-| `npm run verify` | What CI runs: typecheck, lint, test, build, byte budget. |
+| `npm run verify` | What CI runs: typecheck, lint, test, build, byte budget. Offline. |
+| `npm run check:claim` | Network. Asserts the **published** page ships no telemetry host, that the origin still sends a CSP whose `script-src` allows no third-party origin, and that no cookie is set. Not in `verify`, because it is the one check the build cannot do. |
 | `npm run dev` | Local dev server. |
 | `npm run vendor:check` | Network. Fails if `vendor/threeui/` drifted from the published tarball. |
 | `npm run vendor:sync` | Network. Rewrites `vendor/threeui/` from the tarball. |
@@ -61,7 +62,13 @@ it without re-reading that constraint.
    with a Reserved Font Name. The `@font-face` rule is stripped at vendor time. Keep the system UI
    and monospace stacks.
 8. **Never add a tracker, a cookie, client storage, or a third-party subresource.** Aggregate
-   counting, if it ever happens, belongs to the hosting layer, not to this page.
+   counting, if it ever happens, belongs to the hosting layer, not to this page. The build cannot
+   enforce the second half of that sentence: Cloudflare Web Analytics injects
+   `static.cloudflareinsights.com/beacon.min.js` into the served HTML *after* the build, so
+   `dist/` stays clean and every build-side gate stays green while the published page ships a
+   third-party script tag. `tests/compliance.test.ts` covers the artefact;
+   `npm run check:claim` covers the response. Run the second one after any origin, DNS, hosting or
+   Cloudflare change, and any time someone proposes relaxing `script-src`.
 9. **Do not put the vendor's Three.js aliases back.** `build/three-alias.ts` maps `three128` and
    `three165` to the single `three` dependency and is shared by the app build and the test runner.
    Add a card to the build with a new Three API only after checking it is not a removed one.
